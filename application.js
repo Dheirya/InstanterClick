@@ -150,4 +150,4 @@ if(linkElement.protocol=='http:'&&location.protocol=='https:'){return}
 if(!allowQueryString&&linkElement.search&&!('instant' in linkElement.dataset)){return}
 if(linkElement.hash&&linkElement.pathname+linkElement.search==location.pathname+location.search){return}
 if('noInstant' in linkElement.dataset){return}
-return!0}function preload(url) {if (prefetches.has(url)) {return}const prefetcher = document.createElement('link');prefetcher.rel = 'fetch';prefetcher.href = url;document.head.appendChild(prefetcher);prefetches.add(url);$.ajax({type: "GET",dataType: 'html',contentType: "text/html; charset=utf-8",url: url,cache: true,async: true});}
+return!0}function preload(url) {if (prefetches.has(url)) {return}const prefetcher = document.createElement('link');prefetcher.rel = 'prefetch';prefetcher.href = url;document.head.appendChild(prefetcher);prefetches.add(url);$.ajax({type: "GET",dataType: 'html',contentType: "text/html; charset=utf-8",url: url,cache: true,async: true});}
