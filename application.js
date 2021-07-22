@@ -142,20 +142,6 @@ function mousedownShortcutListener(event) {
   const customEvent = new MouseEvent('click', {view: window, bubbles: true, cancelable: false, detail: 1337})
   linkElement.dispatchEvent(customEvent)
 }
-var browser = (function() {
-    var test = function(regexp) {return regexp.test(window.navigator.userAgent)}
-    switch (true) {
-        case test(/edg/i): return "Microsoft Edge";
-        case test(/trident/i): return "Microsoft Internet Explorer";
-        case test(/firefox|fxios/i): return "Mozilla Firefox";
-        case test(/opr\//i): return "Opera";
-        case test(/ucbrowser/i): return "UC Browser";
-        case test(/samsungbrowser/i): return "Samsung Browser";
-        case test(/chrome|chromium|crios/i): return "Google Chrome";
-        case test(/safari/i): return "Apple Safari";
-        default: return "Other";
-    }
-})();
 function isPreloadable(linkElement){if(!linkElement||!linkElement.href){return}
 if(useWhitelist&&!('instant' in linkElement.dataset)){return}
 if(!allowExternalLinks&&linkElement.origin!=location.origin&&!('instant' in linkElement.dataset)){return}
@@ -164,4 +150,4 @@ if(linkElement.protocol=='http:'&&location.protocol=='https:'){return}
 if(!allowQueryString&&linkElement.search&&!('instant' in linkElement.dataset)){return}
 if(linkElement.hash&&linkElement.pathname+linkElement.search==location.pathname+location.search){return}
 if('noInstant' in linkElement.dataset){return}
-return!0}function preload(url) {if (prefetches.has(url)) {return}const prefetcher = document.createElement('link');var isChrome = !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime);if(browser=="Google Chrome"){prefetcher.rel = 'fetch';}else{prefetcher.rel = 'prerender';}prefetcher.href = url;document.head.appendChild(prefetcher);prefetches.add(url);$.ajax({type: "GET",dataType: 'html',contentType: "text/html; charset=utf-8",url: url,cache: true,async: true});}
+return!0}function preload(url) {if (prefetches.has(url)) {return}const prefetcher = document.createElement('link');prefetcher.rel = 'prerender fetch prefetch';prefetcher.href = url;document.head.appendChild(prefetcher);prefetches.add(url);$.ajax({type: "GET",dataType: 'html',contentType: "text/html; charset=utf-8",url: url,cache: true,async: true});}
